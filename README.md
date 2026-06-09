@@ -1,2 +1,2 @@
 Tài khoản admin do seed sinh 
-Tài khoản Doctor do admin sinh 
+Tài khoản Doctor do admin
