@@ -24,7 +24,9 @@ export class Patient {
   @Column()
   address!: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   user!: User;
 }

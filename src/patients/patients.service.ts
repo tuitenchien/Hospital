@@ -26,7 +26,7 @@ export class PatientsService {
 
     // 🔍 2. Lấy patient theo userId (dùng sau login)
     async findByUserId(userId: number) {
-        return this.patientRepository.findOne({
+        const patient = await this.patientRepository.findOne({
             where: {
                 user: { id: userId },
             },
@@ -34,6 +34,12 @@ export class PatientsService {
                 user: true,
             },
         });
+
+        if (!patient) {
+            throw new NotFoundException('Không tìm thấy bệnh nhân');
+        }
+
+        return patient;
     }
 
     // 📋 3. Lấy tất cả bệnh nhân (admin)
@@ -57,7 +63,6 @@ export class PatientsService {
         if (!patient) {
             throw new NotFoundException('Không tìm thấy bệnh nhân');
         }
-
         return patient;
     }
 
@@ -68,15 +73,7 @@ export class PatientsService {
         if (!patient) {
             throw new NotFoundException('Không tìm thấy bệnh nhân');
         }
-
         Object.assign(patient, data);
-
         return this.patientRepository.save(patient);
-    }
-
-    // ❌ 6. Xóa bệnh nhân (admin)
-    async remove(id: number) {
-        const patient = await this.findOne(id);
-        return this.patientRepository.remove(patient);
     }
 }
