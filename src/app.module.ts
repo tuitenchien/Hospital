@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { User } from './users/users.entity';
-
+import { PatientsModule } from './patients/patients.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -12,10 +11,11 @@ import { User } from './users/users.entity';
       username: 'postgres',
       password: '11111',
       database: 'medicare',
-      entities: [User],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     AuthModule,
+    PatientsModule
   ],
 })
 export class AppModule {}
