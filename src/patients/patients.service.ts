@@ -11,8 +11,7 @@ export class PatientsService {
         @InjectRepository(Patient)
         private patientRepository: Repository<Patient>,
     ) { }
-
-    // 🔥 1. Tạo patient (dùng khi register)
+    //Tạo patient (dùng khi register)
     async create(data: {
         fullName: string;
         phone: string;
@@ -24,7 +23,7 @@ export class PatientsService {
         return this.patientRepository.save(patient);
     }
 
-    // 🔍 2. Lấy patient theo userId (dùng sau login)
+    //Lấy patient theo userId (dùng sau login)
     async findByUserId(userId: number) {
         const patient = await this.patientRepository.findOne({
             where: {
@@ -42,7 +41,7 @@ export class PatientsService {
         return patient;
     }
 
-    // 📋 3. Lấy tất cả bệnh nhân (admin)
+    //Lấy tất cả bệnh nhân (admin)
     async findAll() {
         return this.patientRepository.find({
             relations: {
@@ -51,7 +50,7 @@ export class PatientsService {
         });
     }
 
-    // 🔍 4. Lấy 1 bệnh nhân theo id
+    //Lấy 1 bệnh nhân theo id
     async findOne(id: number) {
         const patient = await this.patientRepository.findOne({
             where: { id },
@@ -66,7 +65,7 @@ export class PatientsService {
         return patient;
     }
 
-    // ✏️ 5. Update profile
+    //Update profile
     async update(userId: number, data: Partial<Patient>) {
         const patient = await this.findByUserId(userId);
 
@@ -76,4 +75,5 @@ export class PatientsService {
         Object.assign(patient, data);
         return this.patientRepository.save(patient);
     }
+    
 }

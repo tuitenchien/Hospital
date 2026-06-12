@@ -15,14 +15,17 @@ export class Patient {
   @Column()
   fullName!: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone!: string;
 
-  @Column()
-  dateOfBirth!: string;
+  @Column({ type: 'date', nullable: true })
+  dateOfBirth!: Date;
 
-  @Column()
+  @Column({ nullable: true })
   address!: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt!: Date;
 
   @OneToOne(() => User, {
     onDelete: 'CASCADE',
